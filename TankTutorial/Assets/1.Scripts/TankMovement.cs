@@ -11,8 +11,8 @@ public class TankMovement : MonoBehaviour
     public AudioClip EngineDriving;           // Audio to play when the tank is moving.
     public float PitchRange = 0.2f;           // The amount by which the pitch of the engine noises can vary.
 
-    private string movementAxisName;          // The name of the input axis for moving forward and back.
-    private string turnAxisName;              // The name of the input axis for turning.
+    //private string movementAxisName;          // The name of the input axis for moving forward and back.
+    //private string turnAxisName;              // The name of the input axis for turning.
     private Rigidbody rb;              // Reference used to move the tank.
     private float movementInputValue;         // The current value of the movement input.
     private float turnInputValue;             // The current value of the turn input.
@@ -59,9 +59,9 @@ public class TankMovement : MonoBehaviour
 
     private void Start()
     {
-        // The axes names are based on player number.
-        movementAxisName = "Vertical" + PlayerNumber;
-        turnAxisName = "Horizontal" + PlayerNumber;
+        //// The axes names are based on player number.
+        //movementAxisName = "Vertical" + PlayerNumber;
+        //turnAxisName = "Horizontal" + PlayerNumber;
 
         // Store the original pitch of the audio source.
         originalPitch = MovementAudio.pitch;
@@ -75,13 +75,13 @@ public class TankMovement : MonoBehaviour
         //turnInputValue = Input.GetAxis(turnAxisName);
 
         if (Input.GetKey(KeyCode.UpArrow))
-            movementInputValue = 2.0f;
+            movementInputValue = 1f;
         if (Input.GetKey(KeyCode.DownArrow))
-            movementInputValue = -2.0f;
+            movementInputValue = -1f;
         if (Input.GetKey(KeyCode.RightArrow))
-            turnInputValue = 2.0f;
+            turnInputValue = 1f;
         if (Input.GetKey(KeyCode.LeftArrow))
-            turnInputValue = -2.0f;
+            turnInputValue = -1f;
 
         
         EngineAudio();
