@@ -14,7 +14,6 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.5f1</UnityVersion>
@@ -80,8 +79,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\1.Scripts\CameraControl.cs" />
+    <Compile Include="Assets\1.Scripts\GameManager.cs" />
     <Compile Include="Assets\1.Scripts\ShellExplosion.cs" />
     <Compile Include="Assets\1.Scripts\TankHealth.cs" />
+    <Compile Include="Assets\1.Scripts\TankManager.cs" />
     <Compile Include="Assets\1.Scripts\TankMovement.cs" />
     <Compile Include="Assets\1.Scripts\TankShooting.cs" />
     <Compile Include="Assets\1.Scripts\UIDirectionControl.cs" />
@@ -129,18 +130,9 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
-    <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
-    <Compile Include="Assets\Scripts\Tank\TankHealth.cs" />
-    <Compile Include="Assets\Scripts\Tank\TankShooting.cs" />
-    <Compile Include="Assets\Scripts\UI\UIDirectionControl.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\_Completed-Assets\Scripts\Managers\GameManager.cs" />
-    <Compile Include="Assets\_Completed-Assets\Scripts\Managers\TankManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
+    <None Include="Assets\2.Arts\Fonts\Bowlby_One\OFL.txt" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />

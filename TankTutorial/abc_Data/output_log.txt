@@ -15,7 +15,7 @@ Platform assembly: C:\Users\hrd32105\Desktop\DontLazyGit\TankTutorial\abc_Data\M
 Loading C:\Users\hrd32105\Desktop\DontLazyGit\TankTutorial\abc_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\hrd32105\Desktop\DontLazyGit\TankTutorial\abc_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\hrd32105\Desktop\DontLazyGit\TankTutorial\abc_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.256 seconds
+- Completed reload, in  0.235 seconds
 Platform assembly: C:\Users\hrd32105\Desktop\DontLazyGit\TankTutorial\abc_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\hrd32105\Desktop\DontLazyGit\TankTutorial\abc_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
@@ -23,7 +23,7 @@ desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.209918 ms
+UnloadTime: 1.240328 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2dc0 -> priority: 1 
-  Thread -> id: 3954 -> priority: 1 
+  Thread -> id: 4428 -> priority: 1 
+  Thread -> id: 36d8 -> priority: 1 

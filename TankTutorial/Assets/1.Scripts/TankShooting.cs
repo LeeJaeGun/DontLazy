@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Complete
-{
+
     public class TankShooting : MonoBehaviour
     {
         public int m_PlayerNumber = 1;              // Used to identify the different players.
@@ -101,4 +100,3 @@ namespace Complete
             m_CurrentLaunchForce = m_MinLaunchForce;
         }
     }
-}
