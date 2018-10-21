@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using TankUtility;
 
 public class TankMovement : MonoBehaviour
 {
@@ -11,8 +11,8 @@ public class TankMovement : MonoBehaviour
     public AudioClip EngineDriving;           // Audio to play when the tank is moving.
     public float PitchRange = 0.2f;           // The amount by which the pitch of the engine noises can vary.
 
-    //private string movementAxisName;          // The name of the input axis for moving forward and back.
-    //private string turnAxisName;              // The name of the input axis for turning.
+    private string movementAxisName;          // The name of the input axis for moving forward and back.
+    private string turnAxisName;              // The name of the input axis for turning.
     private Rigidbody rb;              // Reference used to move the tank.
     private float movementInputValue;         // The current value of the movement input.
     private float turnInputValue;             // The current value of the turn input.
@@ -60,9 +60,11 @@ public class TankMovement : MonoBehaviour
     private void Start()
     {
         //// The axes names are based on player number.
-        //movementAxisName = "Vertical" + PlayerNumber;
-        //turnAxisName = "Horizontal" + PlayerNumber;
-
+        if (GameControllerManager.Instance.selectedGameMode == GAMEMODE.PVP)
+        {
+            movementAxisName = "Vertical" + PlayerNumber;
+            turnAxisName = "Horizontal" + PlayerNumber;
+        }
         // Store the original pitch of the audio source.
         originalPitch = MovementAudio.pitch;
     }
@@ -71,19 +73,24 @@ public class TankMovement : MonoBehaviour
     private void Update()
     {
         // Store the value of both input axes.
-        // movementInputValue = Input.GetAxis(movementAxisName);
-        //turnInputValue = Input.GetAxis(turnAxisName);
+        if (GameControllerManager.Instance.selectedGameMode == GAMEMODE.PVP)
+        {
+            movementInputValue = Input.GetAxis(movementAxisName);
+            turnInputValue = Input.GetAxis(turnAxisName);
+        }
 
-        if (Input.GetKey(KeyCode.UpArrow))
-            movementInputValue = 1f;
-        if (Input.GetKey(KeyCode.DownArrow))
-            movementInputValue = -1f;
-        if (Input.GetKey(KeyCode.RightArrow))
-            turnInputValue = 1f;
-        if (Input.GetKey(KeyCode.LeftArrow))
-            turnInputValue = -1f;
+        else
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+                movementInputValue = 1f;
+            if (Input.GetKey(KeyCode.DownArrow))
+                movementInputValue = -1f;
+            if (Input.GetKey(KeyCode.RightArrow))
+                turnInputValue = 1f;
+            if (Input.GetKey(KeyCode.LeftArrow))
+                turnInputValue = -1f;
 
-        
+        }
         EngineAudio();
     }
 
