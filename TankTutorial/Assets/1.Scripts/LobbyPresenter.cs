@@ -37,7 +37,7 @@ public class LobbyPresenter : MonoBehaviour {
         {
             colorblock.normalColor = Color.red;
             colorblock.highlightedColor = Color.red;
-            GameControllerManager.Instance.ChangeGameMode(TankUtility.GAMEMODE.PVP);
+            GameControllManager.Instance.ChangeGameMode(TankUtility.GAMEMODE.PVP);
             if (PvEToggle.isOn)
             {
                 PvEToggle.isOn = false;
@@ -73,7 +73,7 @@ public class LobbyPresenter : MonoBehaviour {
                 PvPToggle.isOn = false;
             }
 
-            GameControllerManager.Instance.ChangeGameMode(TankUtility.GAMEMODE.PVE);
+            GameControllManager.Instance.ChangeGameMode(TankUtility.GAMEMODE.PVE);
         }
         else
         {
@@ -98,7 +98,7 @@ public class LobbyPresenter : MonoBehaviour {
           
         }
         else
-            GameControllerManager.Instance.ChangeScene(TankUtility.GAMESCENE.INGAME);
+            GameControllManager.Instance.ChangeScene(TankUtility.GAMESCENE.INGAME);
     }
 
     void OnClickOkButton()

@@ -4,7 +4,7 @@ using UnityEngine;
 using TankUtility;
 using UnityEngine.SceneManagement;
 
-public class GameControllerManager : Singleton<GameControllerManager> {
+public class GameControllManager : Singleton<GameControllManager> {
 
     
     public GAMEMODE selectedGameMode { get; private set; }
@@ -13,7 +13,7 @@ public class GameControllerManager : Singleton<GameControllerManager> {
 	void Awake ()
     {
         Instance.Init();
-        selectedGameMode = GAMEMODE.NONE;
+        selectedGameMode = GAMEMODE.PVE;
     }   
 
     public void ChangeScene(GAMESCENE s)

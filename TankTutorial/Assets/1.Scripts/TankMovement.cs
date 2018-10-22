@@ -4,7 +4,7 @@ using TankUtility;
 public class TankMovement : MonoBehaviour
 {
     public int PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
-    public float Speed = 12f;                 // How fast the tank moves forward and back.
+    public float Speed = 6f;                 // How fast the tank moves forward and back.
     public float TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
     public AudioSource MovementAudio;         // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
     public AudioClip EngineIdling;            // Audio to play when the tank isn't moving.
@@ -60,7 +60,7 @@ public class TankMovement : MonoBehaviour
     private void Start()
     {
         //// The axes names are based on player number.
-        if (GameControllerManager.Instance.selectedGameMode == GAMEMODE.PVP)
+        if (GameControllManager.Instance.selectedGameMode == GAMEMODE.PVP)
         {
             movementAxisName = "Vertical" + PlayerNumber;
             turnAxisName = "Horizontal" + PlayerNumber;
@@ -73,7 +73,7 @@ public class TankMovement : MonoBehaviour
     private void Update()
     {
         // Store the value of both input axes.
-        if (GameControllerManager.Instance.selectedGameMode == GAMEMODE.PVP)
+        if (GameControllManager.Instance.selectedGameMode == GAMEMODE.PVP)
         {
             movementInputValue = Input.GetAxis(movementAxisName);
             turnInputValue = Input.GetAxis(turnAxisName);

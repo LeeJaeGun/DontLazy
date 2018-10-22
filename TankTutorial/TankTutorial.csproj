@@ -14,7 +14,6 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.5f1</UnityVersion>
@@ -79,12 +78,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\1.Scripts\AbstractTank.cs" />
+    <Compile Include="Assets\1.Scripts\AbstractTankController.cs" />
     <Compile Include="Assets\1.Scripts\CameraControl.cs" />
     <Compile Include="Assets\1.Scripts\EnemyTankManager.cs" />
     <Compile Include="Assets\1.Scripts\EnemyTankMonvement.cs" />
     <Compile Include="Assets\1.Scripts\EnemyTankShooting.cs" />
-    <Compile Include="Assets\1.Scripts\GameControllerManager.cs" />
-    <Compile Include="Assets\1.Scripts\GameManager.cs" />
+    <Compile Include="Assets\1.Scripts\GameControllManager.cs" />
+    <Compile Include="Assets\1.Scripts\InGameController.cs" />
     <Compile Include="Assets\1.Scripts\LobbyPresenter.cs" />
     <Compile Include="Assets\1.Scripts\ShellExplosion.cs" />
     <Compile Include="Assets\1.Scripts\SingleTon.cs" />

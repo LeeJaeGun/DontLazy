@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankTutorial", "TankTutorial.csproj", "{EA83E5B8-63B9-14EB-9AA8-1B3126DCDF04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TankTutorial.Editor", "TankTutorial.Editor.csproj", "{F07BF5B8-4A39-F785-15DC-9F2C7EB92FCF}"

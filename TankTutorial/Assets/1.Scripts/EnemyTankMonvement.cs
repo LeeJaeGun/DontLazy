@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using TankUtility;
+using System.Collections;
 
 public class EnemyTankMonvement : MonoBehaviour
 {
     public int PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
-    public float Speed = 12f;                 // How fast the tank moves forward and back.
+    public float Speed = 6f;                 // How fast the tank moves forward and back.
     public float TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
     public AudioSource MovementAudio;         // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
     public AudioClip EngineIdling;            // Audio to play when the tank isn't moving.
@@ -17,11 +18,21 @@ public class EnemyTankMonvement : MonoBehaviour
     private float originalPitch;              // The pitch of the audio source at the start of the scene.
     private ParticleSystem[] particleSystems; // References to all the particles systems used by the Tanks
 
+    private Transform enemytransform;
+    private Transform playerTransform;
+    private TankHealth health;
+
+    private RaycastHit raycastHit;
+    private RaycastHit fireraycastHit;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+       
+        
     }
-
+    
+    
 
     private void OnEnable()
     {
@@ -38,6 +49,10 @@ public class EnemyTankMonvement : MonoBehaviour
         {
             particleSystems[i].Play();
         }
+        
+
+        StartCoroutine(MoveRandom());
+        StartCoroutine(LookAtPlayerPosition());
     }
 
 
@@ -51,14 +66,69 @@ public class EnemyTankMonvement : MonoBehaviour
         {
             particleSystems[i].Stop();
         }
+        StopCoroutine(MoveRandom());
+        StopCoroutine(LookAtPlayerPosition());
     }
 
 
     private void Start()
     {
-        
+        enemytransform = GetComponent<Transform>();
+        health = GetComponent<TankHealth>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         originalPitch = MovementAudio.pitch;
+      
     }
+
+    private IEnumerator MoveRandom()
+    {
+
+        yield return new WaitForSeconds(3.5f);
+        while (!health.GetDeathState())
+        {
+            movementInputValue = 1;
+            yield return new WaitForEndOfFrame();
+
+        }
+
+      
+    }
+
+    private void CheckNearBy()
+    {
+        if (Physics.Raycast(enemytransform.transform.position,transform.forward,out raycastHit,50.0f))
+        {
+            if (raycastHit.distance<=1.0f&& raycastHit.collider.tag == "Wall")
+            {
+               
+                Vector3 orthogonalVector = new Vector3(enemytransform.position.x + 90, enemytransform.position.y, enemytransform.position.z+90);
+                orthogonalVector.Normalize();
+                enemytransform.rotation = Quaternion.Lerp(enemytransform.rotation, Quaternion.LookRotation(orthogonalVector), TurnSpeed * Time.deltaTime);
+
+                Debug.Log("벽 감지");
+            }
+            else if(raycastHit.distance >= 1.0f&& raycastHit.collider.tag == "Player")
+            {
+                Debug.Log("플레이어 감지");
+            }
+        }
+    }
+
+ 
+    private IEnumerator LookAtPlayerPosition()
+    {
+
+        yield return new WaitForSeconds(3.5f);
+        while (!health.GetDeathState())
+        {
+            Vector3 v = playerTransform.position - enemytransform.position;
+            v.Normalize();
+            enemytransform.rotation = Quaternion.Lerp(enemytransform.rotation, Quaternion.LookRotation(v), TurnSpeed * Time.deltaTime);
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
+
 
 
     private void Update()
@@ -98,9 +168,10 @@ public class EnemyTankMonvement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Adjust the rigidbodies position and orientation in FixedUpdate.
+        // Adjust the rigidbodies position and orientation in FixedUpdate. 
+        CheckNearBy();
         Move();
-        Turn();
+        
     }
 
 
@@ -115,16 +186,16 @@ public class EnemyTankMonvement : MonoBehaviour
     }
 
 
-    private void Turn()
-    {
-        // Determine the number of degrees to be turned based on the input, speed and time between frames.
-        float turn = turnInputValue * TurnSpeed * Time.deltaTime;
+    //private void Turn()
+    //{
+    //    // Determine the number of degrees to be turned based on the input, speed and time between frames.
+    //    float turn = turnInputValue * TurnSpeed * Time.deltaTime;
 
-        // Make this into a rotation in the y axis.
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+    //    // Make this into a rotation in the y axis.
+    //    Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 
-        // Apply this rotation to the rigidbody's rotation.
-        rb.MoveRotation(rb.rotation * turnRotation);
-        turnInputValue = 0;
-    }
+    //    // Apply this rotation to the rigidbody's rotation.
+    //    rb.MoveRotation(rb.rotation * turnRotation);
+    //    turnInputValue = 0;
+    //}
 }

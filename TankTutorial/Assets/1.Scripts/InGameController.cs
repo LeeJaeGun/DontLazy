@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class GameManager : MonoBehaviour
+public class InGameController : MonoBehaviour
 {
     public int m_NumRoundsToWin = 5;            // The number of rounds a single player has to win to win the game.
     public float m_StartDelay = 3f;             // The delay between the start of RoundStarting and RoundPlaying phases.
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         // Create the delays so they only have to be made once.
         m_StartWait = new WaitForSeconds(m_StartDelay);
         m_EndWait = new WaitForSeconds(m_EndDelay);
-        if (GameControllerManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVP)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVP)
         {
             SpawnAllTanks();
           
@@ -44,10 +44,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
+    private void NotifyPlayerInfoToEnemy()
+    {
+      
+    }
+
 
     private void SpawnAllTanks()
     {
-        if (GameControllerManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
             m_Tanks[0].m_Instance =
                   Instantiate(m_TankPrefab, m_Tanks[0].m_SpawnPoint.position, m_Tanks[0].m_SpawnPoint.rotation) as GameObject;
@@ -85,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     private void SetCameraTargets()
     {
-        if (GameControllerManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVP)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVP)
         {
             // Create a collection of transforms the same size as the number of tanks.
             Transform[] targets = new Transform[m_Tanks.Length];
@@ -211,7 +216,7 @@ public class GameManager : MonoBehaviour
     // This is used to check if there is one or fewer tanks remaining and thus the round should end.
     private bool OneTankLeft()
     {
-        if (GameControllerManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
             // Start the count of tanks left at zero.
             int numTanksLeft = 0;
@@ -314,7 +319,7 @@ public class GameManager : MonoBehaviour
     // This function is used to turn all the tanks back on and reset their positions and properties.
     private void ResetAllTanks()
     {
-        if (GameControllerManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
             m_Tanks[0].Reset();
             for (int i = 0; i < m_EnemyTanks.Length; i++)
@@ -335,12 +340,12 @@ public class GameManager : MonoBehaviour
 
     private void EnableTankControl()
     {
-        if (GameControllerManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
-            m_Tanks[0].Reset();
+            m_Tanks[0].EnableControl();
             for (int i = 0; i < m_EnemyTanks.Length; i++)
             {
-                m_EnemyTanks[i].Reset();
+                m_EnemyTanks[i].EnableControl();
             }
         }
         else
@@ -355,7 +360,7 @@ public class GameManager : MonoBehaviour
 
     private void DisableTankControl()
     {
-        if (GameControllerManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
             m_Tanks[0].Reset();
             for (int i = 0; i < m_EnemyTanks.Length; i++)
