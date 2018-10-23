@@ -4,6 +4,9 @@ using System.Collections;
 
 public class EnemyTankMonvement : MonoBehaviour
 {
+   public delegate void SetForFire(float d);
+    public static SetForFire setForFire;
+
     public int PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
     public float Speed = 6f;                 // How fast the tank moves forward and back.
     public float TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
@@ -25,11 +28,12 @@ public class EnemyTankMonvement : MonoBehaviour
     private RaycastHit raycastHit;
     private RaycastHit fireraycastHit;
 
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-       
-        
+
+
     }
     
     
@@ -96,20 +100,23 @@ public class EnemyTankMonvement : MonoBehaviour
 
     private void CheckNearBy()
     {
-        if (Physics.Raycast(enemytransform.transform.position,transform.forward,out raycastHit,50.0f))
+        if (Physics.Raycast(enemytransform.transform.position,transform.forward,out raycastHit,200f))
         {
-            if (raycastHit.distance<=1.0f&& raycastHit.collider.tag == "Wall")
+            if (raycastHit.collider.tag == "Wall")
             {
-               
-                Vector3 orthogonalVector = new Vector3(enemytransform.position.x + 90, enemytransform.position.y, enemytransform.position.z+90);
-                orthogonalVector.Normalize();
-                enemytransform.rotation = Quaternion.Lerp(enemytransform.rotation, Quaternion.LookRotation(orthogonalVector), TurnSpeed * Time.deltaTime);
+                if (raycastHit.distance <= 1.5f)
+                {
+                    Vector3 orthogonalVector = new Vector3(enemytransform.position.x + 90, enemytransform.position.y, enemytransform.position.z + 90);
+                    orthogonalVector.Normalize();
+                    enemytransform.rotation = Quaternion.Lerp(enemytransform.rotation, Quaternion.LookRotation(orthogonalVector), TurnSpeed * Time.deltaTime);
+                }
 
-                Debug.Log("벽 감지");
+               
             }
-            else if(raycastHit.distance >= 1.0f&& raycastHit.collider.tag == "Player")
+            else if(raycastHit.collider.tag == "Player")
             {
-                Debug.Log("플레이어 감지");
+                if(raycastHit.distance >= 2.0f)
+                setForFire(raycastHit.distance);
             }
         }
     }

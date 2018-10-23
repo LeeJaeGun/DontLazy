@@ -302,12 +302,26 @@ public class InGameController : MonoBehaviour
         // Add some line breaks after the initial message.
         message += "\n\n\n\n";
 
+       
+
         // Go through all the tanks and add each of their scores to the message.
-        for (int i = 0; i < m_Tanks.Length; i++)
+        if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
-            message += m_Tanks[i].m_ColoredPlayerText + ": " + m_Tanks[i].m_Wins + " WINS\n";
+            message += m_Tanks[0].m_ColoredPlayerText + ": " + m_Tanks[0].m_Wins + " WINS\n";
+
+            for (int i = 0; i < m_EnemyTanks.Length; i++)
+            {
+                message += m_EnemyTanks[i].m_ColoredPlayerText + ": " + m_EnemyTanks[i].m_Wins + " WINS\n";
+            }
         }
 
+        else
+        {
+            for (int i = 0; i < m_Tanks.Length; i++)
+            {
+                message += m_Tanks[i].m_ColoredPlayerText + ": " + m_Tanks[i].m_Wins + " WINS\n";
+            }
+        }
         // If there is a game winner, change the entire message to reflect that.
         if (m_GameWinner != null)
             message = m_GameWinner.m_ColoredPlayerText + " WINS THE GAME!";
