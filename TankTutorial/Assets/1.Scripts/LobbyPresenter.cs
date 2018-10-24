@@ -20,13 +20,23 @@ public class LobbyPresenter : MonoBehaviour {
     [SerializeField]
     Button OkButton;
 
+    [SerializeField]
+    Dropdown dropdown;
+
+
 
     private void Start()
     {
         PvPToggle.onValueChanged.AddListener(OnClickPvPToggle);
         PvEToggle.onValueChanged.AddListener(OnClickPvEToggle);
+        dropdown.onValueChanged.AddListener(OnChangeDropDownValue);
         PlayButton.onClick.AddListener(OnClickPlayButton);
         OkButton.onClick.AddListener(OnClickOkButton);
+    }
+    void OnChangeDropDownValue(int v)
+    {
+        GameControllManager.Instance.EnemyCount = v;
+        Debug.Log("현재 몬스터 수" + v);
     }
 
     void OnClickPvPToggle(bool isOn)
@@ -35,12 +45,14 @@ public class LobbyPresenter : MonoBehaviour {
 
         if (isOn)
         {
+            dropdown.gameObject.SetActive(false);
             colorblock.normalColor = Color.red;
             colorblock.highlightedColor = Color.red;
             GameControllManager.Instance.ChangeGameMode(TankUtility.GAMEMODE.PVP);
             if (PvEToggle.isOn)
             {
                 PvEToggle.isOn = false;
+                dropdown.gameObject.SetActive(false);
             }
         }
         else
@@ -51,6 +63,7 @@ public class LobbyPresenter : MonoBehaviour {
             if (!PvEToggle.isOn)
             {
                 PvEToggle.isOn = true;
+                dropdown.gameObject.SetActive(true);
             }
           
         }
@@ -67,10 +80,11 @@ public class LobbyPresenter : MonoBehaviour {
         {
             colorblock.normalColor = Color.red;
             colorblock.highlightedColor = Color.red;
-
+            dropdown.gameObject.SetActive(true);
             if (PvPToggle.isOn)
             {
                 PvPToggle.isOn = false;
+                dropdown.gameObject.SetActive(true);
             }
 
             GameControllManager.Instance.ChangeGameMode(TankUtility.GAMEMODE.PVE);
@@ -83,6 +97,7 @@ public class LobbyPresenter : MonoBehaviour {
             if (!PvPToggle.isOn)
             {
                 PvPToggle.isOn = true;
+                dropdown.gameObject.SetActive(false);
             }
           
         }  

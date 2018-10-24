@@ -26,14 +26,13 @@ public class EnemyTankMonvement : MonoBehaviour
     private TankHealth health;
 
     private RaycastHit raycastHit;
-    private RaycastHit fireraycastHit;
+    LayerMask layerMask;
 
-   
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
-
+        layerMask = (1 << LayerMask.NameToLayer("Players") | 1 << LayerMask.NameToLayer("Walls"));
+        turnInputValue = 0;
     }
     
     
@@ -90,6 +89,7 @@ public class EnemyTankMonvement : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
         while (!health.GetDeathState())
         {
+            
             movementInputValue = 1;
             yield return new WaitForEndOfFrame();
 
@@ -100,7 +100,7 @@ public class EnemyTankMonvement : MonoBehaviour
 
     private void CheckNearBy()
     {
-        if (Physics.Raycast(enemytransform.transform.position,transform.forward,out raycastHit,200f))
+        if (Physics.Raycast(enemytransform.transform.position, enemytransform.transform.forward,out raycastHit,200f, layerMask))
         {
             if (raycastHit.collider.tag == "Wall")
             {
@@ -115,7 +115,7 @@ public class EnemyTankMonvement : MonoBehaviour
             }
             else if(raycastHit.collider.tag == "Player")
             {
-                if(raycastHit.distance >= 2.0f)
+                if(raycastHit.distance >= 1.5f)
                 setForFire(raycastHit.distance);
             }
         }
@@ -140,7 +140,7 @@ public class EnemyTankMonvement : MonoBehaviour
 
     private void Update()
     {
-       
+        CheckNearBy();
         EngineAudio();
     }
 
@@ -176,7 +176,6 @@ public class EnemyTankMonvement : MonoBehaviour
     private void FixedUpdate()
     {
         // Adjust the rigidbodies position and orientation in FixedUpdate. 
-        CheckNearBy();
         Move();
         
     }

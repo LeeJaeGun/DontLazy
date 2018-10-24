@@ -8,6 +8,7 @@ public class GameControllManager : Singleton<GameControllManager> {
 
     
     public GAMEMODE selectedGameMode { get; private set; }
+    public int EnemyCount = 1;
 
 
 	void Awake ()
