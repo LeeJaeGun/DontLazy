@@ -8,7 +8,7 @@ public class GameControllManager : Singleton<GameControllManager> {
 
     
     public GAMEMODE selectedGameMode { get; private set; }
-    public int EnemyCount = 1;
+    public int EnemyCount = 3;
 
 
 	void Awake ()
@@ -24,7 +24,7 @@ public class GameControllManager : Singleton<GameControllManager> {
 
    public void ChangeGameMode(GAMEMODE g)
     {
-        selectedGameMode = g;
+        selectedGameMode = g ;
 
     }
 

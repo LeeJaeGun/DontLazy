@@ -10,13 +10,9 @@ public class AbstractTank
     [HideInInspector]
     public string m_ColoredPlayerText;    // A string that represents the player with their number colored to match their tank.
     [HideInInspector]
-    public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
-    [HideInInspector]
     public int m_Wins;                    // The number of wins this player has so far.
 
-
-
-
+    public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
     // Use this for initialization
     public void Reset()
     {

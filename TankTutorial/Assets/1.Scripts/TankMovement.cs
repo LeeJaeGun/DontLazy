@@ -75,6 +75,7 @@ public class TankMovement : MonoBehaviour
         // Store the value of both input axes.
         if (GameControllManager.Instance.selectedGameMode == GAMEMODE.PVP)
         {
+           
             movementInputValue = Input.GetAxis(movementAxisName);
             turnInputValue = Input.GetAxis(turnAxisName);
         }

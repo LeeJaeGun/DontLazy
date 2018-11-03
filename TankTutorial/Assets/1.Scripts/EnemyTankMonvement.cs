@@ -4,9 +4,6 @@ using System.Collections;
 
 public class EnemyTankMonvement : MonoBehaviour
 {
-   public delegate void SetForFire(float d);
-    public static SetForFire setForFire;
-
     public int PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
     public float Speed = 6f;                 // How fast the tank moves forward and back.
     public float TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
@@ -24,12 +21,15 @@ public class EnemyTankMonvement : MonoBehaviour
     private Transform enemytransform;
     private Transform playerTransform;
     private TankHealth health;
+    private EnemyTankShooting eth;
 
     private RaycastHit raycastHit;
     LayerMask layerMask;
 
     private void Awake()
     {
+        eth = GetComponent<EnemyTankShooting>();
+        raycastHit = new RaycastHit();
         rb = GetComponent<Rigidbody>();
         layerMask = (1 << LayerMask.NameToLayer("Players") | 1 << LayerMask.NameToLayer("Walls"));
         turnInputValue = 0;
@@ -116,7 +116,7 @@ public class EnemyTankMonvement : MonoBehaviour
             else if(raycastHit.collider.tag == "Player")
             {
                 if(raycastHit.distance >= 1.5f)
-                setForFire(raycastHit.distance);
+                eth.SetDistance(raycastHit.distance);
             }
         }
     }
@@ -131,7 +131,7 @@ public class EnemyTankMonvement : MonoBehaviour
             Vector3 v = playerTransform.position - enemytransform.position;
             v.Normalize();
             enemytransform.rotation = Quaternion.Lerp(enemytransform.rotation, Quaternion.LookRotation(v), TurnSpeed * Time.deltaTime);
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(Random.Range(1.0f,4.0f));
         }
     }
 

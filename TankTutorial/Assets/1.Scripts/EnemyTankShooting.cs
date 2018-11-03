@@ -32,14 +32,14 @@ public class EnemyTankShooting : MonoBehaviour
         m_CurrentLaunchForce = m_MinLaunchForce;
         m_AimSlider.value = m_MinLaunchForce;
         m_ChargeSpeed = 2.5f;
-        EnemyTankMonvement.setForFire += SetDistance;
+   
 
     }
 
     private void OnDisable()
     {
         ResetEnemyTank();
-        EnemyTankMonvement.setForFire -= SetDistance;
+      
     }
 
     public void ResetEnemyTank()
@@ -57,7 +57,6 @@ public class EnemyTankShooting : MonoBehaviour
 
         if (!checkPlayer&& !m_Fired)
         {
-            Debug.Log("타겟 설정 완료 타겟과의 거리 "+d);
             distancePlayer = d;
             checkPlayer = true;
             StartCoroutine(ChargePower());
@@ -84,7 +83,6 @@ public class EnemyTankShooting : MonoBehaviour
         while (m_CurrentLaunchForce<=distancePlayer)
         {
           
-                Debug.Log("Charging 중 현재 파워:"+ m_CurrentLaunchForce);
 
                 // Increment the launch force and update the slider.
                 m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
@@ -113,10 +111,6 @@ public class EnemyTankShooting : MonoBehaviour
 
     private void Fire()
     {
-        Debug.Log("발사! 중");
-        // Set the fired flag so only Fire is only called once.
-   
-
         // Create an instance of the shell and store a reference to it's rigidbody.
         Rigidbody shellInstance =
             Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;

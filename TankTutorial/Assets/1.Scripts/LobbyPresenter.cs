@@ -33,11 +33,13 @@ public class LobbyPresenter : MonoBehaviour {
         PlayButton.onClick.AddListener(OnClickPlayButton);
         OkButton.onClick.AddListener(OnClickOkButton);
     }
+
     void OnChangeDropDownValue(int v)
     {
-        GameControllManager.Instance.EnemyCount = v;
-        Debug.Log("현재 몬스터 수" + v);
+        GameControllManager.Instance.EnemyCount = v+1;
+        Debug.Log("현재 몬스터 수" + GameControllManager.Instance.EnemyCount);
     }
+
 
     void OnClickPvPToggle(bool isOn)
     {

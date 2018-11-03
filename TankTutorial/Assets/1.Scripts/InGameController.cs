@@ -44,10 +44,7 @@ public class InGameController : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
-    private void NotifyPlayerInfoToEnemy()
-    {
-      
-    }
+
 
 
     private void SpawnAllTanks()
@@ -75,8 +72,9 @@ public class InGameController : MonoBehaviour
     }
     private void SpawnAllEnemyTanks()
     {
+        
         // For all the tanks...
-        for (int i = 0; i < m_EnemyTanks.Length; i++)
+        for (int i = 0; i < GameControllManager.Instance.EnemyCount; i++)
         {
             // ... create them, set their player number and references needed for control.
             m_EnemyTanks[i].m_Instance =
@@ -107,7 +105,7 @@ public class InGameController : MonoBehaviour
         }
         else
         {
-            Transform[] targets = new Transform[m_EnemyTanks.Length+1];
+            Transform[] targets = new Transform[GameControllManager.Instance.EnemyCount+1];
           
             targets[0] = m_Tanks[0].m_Instance.transform;
             int index = 1;
@@ -225,7 +223,7 @@ public class InGameController : MonoBehaviour
                 numTanksLeft++;
 
             // Go through all the tanks...
-            for (int i = 0; i < m_EnemyTanks.Length; i++)
+            for (int i = 0; i < GameControllManager.Instance.EnemyCount; i++)
             {
                 // ... and if they are active, increment the counter.
                 if (m_EnemyTanks[i].m_Instance.activeSelf)
@@ -309,7 +307,7 @@ public class InGameController : MonoBehaviour
         {
             message += m_Tanks[0].m_ColoredPlayerText + ": " + m_Tanks[0].m_Wins + " WINS\n";
 
-            for (int i = 0; i < m_EnemyTanks.Length; i++)
+            for (int i = 0; i < GameControllManager.Instance.EnemyCount; i++)
             {
                 message += m_EnemyTanks[i].m_ColoredPlayerText + ": " + m_EnemyTanks[i].m_Wins + " WINS\n";
             }
@@ -336,7 +334,7 @@ public class InGameController : MonoBehaviour
         if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
             m_Tanks[0].Reset();
-            for (int i = 0; i < m_EnemyTanks.Length; i++)
+            for (int i = 0; i < GameControllManager.Instance.EnemyCount; i++)
             {
                 m_EnemyTanks[i].Reset();
             }
@@ -351,13 +349,13 @@ public class InGameController : MonoBehaviour
         }
     }
 
-
+    
     private void EnableTankControl()
     {
         if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
             m_Tanks[0].EnableControl();
-            for (int i = 0; i < m_EnemyTanks.Length; i++)
+            for (int i = 0; i < GameControllManager.Instance.EnemyCount; i++)
             {
                 m_EnemyTanks[i].EnableControl();
             }
@@ -377,7 +375,7 @@ public class InGameController : MonoBehaviour
         if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVE)
         {
             m_Tanks[0].Reset();
-            for (int i = 0; i < m_EnemyTanks.Length; i++)
+            for (int i = 0; i < GameControllManager.Instance.EnemyCount; i++)
             {
                 m_EnemyTanks[i].Reset();
             }

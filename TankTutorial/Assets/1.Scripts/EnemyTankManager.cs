@@ -10,11 +10,10 @@ public class EnemyTankManager:AbstractTank
     private EnemyTankMonvement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
     private EnemyTankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
     private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
-
-
+ 
     public void Setup()
     {
-
+       
         // Get references to the components.
         m_Movement = m_Instance.GetComponent<EnemyTankMonvement>();
         m_Shooting = m_Instance.GetComponent<EnemyTankShooting>();
