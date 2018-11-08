@@ -10,13 +10,18 @@ public class GameControllManager : Singleton<GameControllManager> {
     public GAMEMODE selectedGameMode { get; private set; }
     public int EnemyCount = 3;
 
+   
 
 	void Awake ()
     {
         Instance.Init();
+      
+
+      
         selectedGameMode = GAMEMODE.PVE;
     }   
 
+  
     public void ChangeScene(GAMESCENE s)
     {
         SceneManager.LoadSceneAsync((int)s);

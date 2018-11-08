@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,11 +24,27 @@ public class InGameController : MonoBehaviour
     private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
 
 
+    private const int MAXSHELLCOUNT = 50;
+
+    public GameObject FallingShell;
+    private Queue<GameObject> FallingShells;
+
+
     private void Start()
     {
         // Create the delays so they only have to be made once.
         m_StartWait = new WaitForSeconds(m_StartDelay);
         m_EndWait = new WaitForSeconds(m_EndDelay);
+        FallingShells = new Queue<GameObject>();
+
+        for (int i = 0; i < MAXSHELLCOUNT; i++)
+        {
+            GameObject g = Instantiate(FallingShell, new Vector3(0, 10, 0), Quaternion.identity);
+            g.SetActive(false);
+            FallingShells.Enqueue(g);
+        }
+
+
         if (GameControllManager.Instance.selectedGameMode == TankUtility.GAMEMODE.PVP)
         {
             SpawnAllTanks();
@@ -42,9 +59,23 @@ public class InGameController : MonoBehaviour
         SetCameraTargets();
         // Once the tanks have been created and the camera is using them as targets, start the game.
         StartCoroutine(GameLoop());
+        StartCoroutine(StartRedZone());
     }
 
 
+    IEnumerator StartRedZone()
+    {
+        int count = 0;
+        while (count <= MAXSHELLCOUNT)
+        {
+            GameObject g = FallingShells.Dequeue();
+            g.SetActive(true);
+            count++;
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        yield return null;
+    }
 
 
     private void SpawnAllTanks()
